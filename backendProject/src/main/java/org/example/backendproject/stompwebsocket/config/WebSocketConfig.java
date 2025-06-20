@@ -44,8 +44,15 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws-chat")
-                .setHandshakeHandler(new CustomHandshakeHandler())
-                .setAllowedOriginPatterns("*");
+        // 기존 채팅 엔드포인트에 커스텀 핸드셰이크 핸들러 적용
+        registry
+            .addEndpoint("/ws-chat")
+            .setHandshakeHandler(new CustomHandshakeHandler())
+            .setAllowedOriginPatterns("*");
+
+        // GPT 전용 WebSocket 엔드포인트
+        registry
+            .addEndpoint("/ws-gpt")
+            .setAllowedOriginPatterns("*");
     }
 }

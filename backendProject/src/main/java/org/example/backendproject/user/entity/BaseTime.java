@@ -5,8 +5,6 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -23,11 +21,11 @@ import java.time.LocalDateTime;
 //이 클래스를 상속받는 엔티티들은 이 클래스의 필드를 컬럼으로 포함시켜라는 어노테이션
 public abstract class BaseTime {
 
-  //엔티티가 저잘될때 자동으로 시간을 기록
-  @CreationTimestamp
-  private LocalDateTime created_date;
+    //엔티티가 저잘될때 자동으로 시간을 기록
+    @CreatedDate
+    private LocalDateTime created_date;
 
-  //수정될대마다 기록
-  @UpdateTimestamp
-  private LocalDateTime updated_date;
+    //수정될대마다 기록
+    @LastModifiedDate
+    private LocalDateTime updated_date;
 }

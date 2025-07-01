@@ -90,6 +90,14 @@ public class BoardEsService {
           b.should(MatchQuery.of(m -> m.field("title.ngram").query(keyword))._toQuery());
           b.should(MatchQuery.of(m -> m.field("content.ngram").query(keyword))._toQuery());
 
+          // fuzziness: "AUTO"는  오타 허용 검색 기능을 자동으로 켜주는 설정 -> 유사도 계산을 매번 수행하기 때문에 느림
+          //짧은 키워드에는 사용 xxx
+          //오타 허용 (오타허용은 match만 가능 )
+          if (keyword.length()>=3){
+            b.should(MatchQuery.of(m ->m.field("title").query(keyword).fuzziness("AUTO"))._toQuery());
+            b.should(MatchQuery.of(m ->m.field("content").query(keyword).fuzziness("AUTO"))._toQuery());
+          }
+
           return b;
 
         })._toQuery();
